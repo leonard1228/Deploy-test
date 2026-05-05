@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Usuarios App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <h1>Gestión de Usuarios 🚀</h1>
+
+  <section class="create-section">
+    <h2>Crear Usuario</h2>
+    <form id="createForm">
+      <div class="form-group">
+        <label for="name">Nombre:</label>
+        <input id="name" type="text" placeholder="Ej: Juan Pérez" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input id="email" type="email" placeholder="Ej: juan@example.com" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Crear Usuario</button>
+    </form>
+  </section>
+
+  <div id="feedback" class="feedback"></div>
+
+  <section class="list-section">
+    <h2>Lista de Usuarios</h2>
+    <button id="loadBtn" type="button" class="btn btn-secondary">Cargar Usuarios</button>
+    <ul id="list" class="user-list"></ul>
+  </section>
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
