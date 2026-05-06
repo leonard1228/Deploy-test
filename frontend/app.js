@@ -1,4 +1,4 @@
-const API = "http://localhost:4000/users";
+const API = "https://deploy-test-uzhs.onrender.com/users";
 
 function showFeedback(message, type = "success") {
   const feedback = document.getElementById("feedback");
