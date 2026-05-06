@@ -1,150 +1,70 @@
-# Setup y Guía de Uso - Taller Frontend-Backend
+📦 Proyecto Deploys – Gestión de Usuarios (CRUD)
+🚀 Descripción
 
-## Instalación de la Base de Datos
+Este proyecto es una aplicación web full-stack que permite gestionar usuarios mediante operaciones CRUD (crear, leer, actualizar y eliminar).
 
-### 1. Habilitar psql en PowerShell (ejecuta una sola vez por sesión)
+La aplicación está dividida en:
 
-```powershell
-& ".\setup-psql.ps1"
-```
+Frontend (HTML, CSS, JavaScript)
+Backend (Node.js + Express)
+Base de datos en la nube (PostgreSQL con Supabase)
+🌐 Demo en producción
+🔗 Backend + Frontend:
+https://deploy-test-uzhs.onrender.com/
+🔗 Repositorio:
+https://github.com/leonard1228/Deploy-test
+⚙️ Tecnologías utilizadas
+Node.js
+Express
+PostgreSQL (Supabase)
+HTML, CSS y JavaScript
+Fetch API
+Render (deploy del backend)
+Git y GitHub
+🧠 Arquitectura del sistema
 
-O manualmente:
-```powershell
-$env:Path += ";C:\Program Files\PostgreSQL\18\bin"
-```
+El sistema sigue una arquitectura cliente-servidor:
 
-### 2. Conectarse a PostgreSQL como superusuario
+Frontend → API REST (Express) → Base de datos (Supabase)
 
-```powershell
-psql -U postgres
-```
+El frontend consume la API mediante peticiones HTTP y el backend se encarga de la lógica y la conexión con la base de datos.
 
-**Nota:** Te pedirá la contraseña. Si no la recuerdas, puedes resetearla o cambiar la contraseña en `src/config.js` a la que uses.
+🔌 API Endpoints
+Usuarios
+GET /users → Obtener todos los usuarios
+GET /users/:id → Obtener usuario por ID
+POST /users → Crear usuario
+PUT /users/:id → Actualizar usuario
+DELETE /users/:id → Eliminar usuario
+🗄️ Base de datos
 
-### 3. Crear la base de datos y tabla
+Se utiliza PostgreSQL en la nube mediante Supabase.
 
-Ejecuta el script SQL (desde PowerShell, fuera de psql):
+La tabla principal es:
 
-```powershell
-psql -U postgres -f schema.sql
-```
+users
+id (PK)
+name (texto)
+email (texto único)
+created_at (fecha automática)
+🚀 Despliegue
+Render
 
-O manualmente, dentro de psql (`psql -U postgres`):
+El backend está desplegado en Render.
 
-```sql
--- Crear base de datos
-CREATE DATABASE taller_bd;
+Render se conecta directamente al repositorio de GitHub y actualiza el servicio automáticamente cuando hay cambios en la rama principal.
 
--- Conectar a la base de datos
-\c taller_bd;
+📡 Comunicación del sistema
 
--- Crear tabla de usuarios
-CREATE TABLE users (
-  id SERIAL PRIMARY KEY,
-  name VARCHAR(100) NOT NULL,
-  email VARCHAR(100) UNIQUE NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+El frontend se comunica con el backend usando fetch() enviando y recibiendo datos en formato JSON.
 
--- Insertar datos de ejemplo
-INSERT INTO users (name, email) VALUES
-  ('Juan Pérez', 'juan@example.com'),
-  ('María García', 'maria@example.com'),
-  ('Carlos López', 'carlos@example.com');
-```
+📸 Evidencias
+Interfaz funcionando
+Creación de usuarios
+Lista de usuarios
+Base de datos en Supabase
+Backend en Render
+📌 Autor
 
-**Comandos útiles en psql:**
-- `\l` - Listar todas las bases de datos
-- `\c taller_bd` - Conectarse a la BD
-- `\dt` - Listar tablas
-- `SELECT * FROM users;` - Ver datos
-- `\q` - Salir
-
-### 4. Configurar credenciales de BD (opcional)
-
-Si tu usuario/contraseña de PostgreSQL es diferente, actualiza `src/config.js`:
-
-```javascript
-export const DB_CONFIG = {
-  user: 'tu_usuario',      // Cambiar aquí
-  password: 'tu_contraseña', // Cambiar aquí
-  host: 'localhost',
-  port: 5432,
-  database: 'taller_bd'
-};
-```
-
-### 5. Iniciar el servidor
-
-```powershell
-npm run dev
-```
-
-El servidor escuchará en http://localhost:4000
-
-## API Endpoints
-
-### GET /users
-Obtener todos los usuarios
-
-**Respuesta:**
-```json
-[
-  { "id": 1, "name": "Juan Pérez", "email": "juan@example.com", "created_at": "2026-05-05..." },
-  ...
-]
-```
-
-### GET /users/:id
-Obtener un usuario por ID
-
-**Ejemplo:** `GET /users/1`
-
-### POST /users
-Crear un nuevo usuario
-
-**Body:**
-```json
-{
-  "name": "Nuevo Usuario",
-  "email": "nuevo@example.com"
-}
-```
-
-### PUT /users/:id
-Actualizar un usuario
-
-**Ejemplo:** `PUT /users/1`
-
-**Body:**
-```json
-{
-  "name": "Nombre Actualizado",
-  "email": "email@actualizado.com"
-}
-```
-
-### DELETE /users/:id
-Eliminar un usuario
-
-**Ejemplo:** `DELETE /users/1`
-
-## Solucionar Problemas
-
-### Error: "Cannot find package 'pg'"
-```powershell
-npm install pg
-```
-
-### Error: "La BD no existe"
-Asegúrate de haber ejecutado el script SQL en `schema.sql`
-
-### Error: "Connection refused"
-- Verifica que PostgreSQL esté corriendo
-- En Windows, revisa Servicios (services.msc) y reinicia "postgresql-x64-18"
-
-### psql no se reconoce
-Ejecuta el setup:
-```powershell
-& ".\setup-psql.ps1"
-```
+Leonard Rodríguez
+Ingeniería de Sistemas – 2026
